@@ -13,11 +13,31 @@ const confirmPasswordInput =document.querySelector('#Confirm-Password');
 
 form.addEventListener('submit', (event) => {
 //  prevent our form from submitting intermitently
-    event.preventDefault()
+
     // to validate the input field we would invoke a function here
     validateForm();
 
+    // to check if all inputs were filled by user , if yes we can proceed to submit the form else we use preventDefault
+    if(isFormValid() == true){
+        form.submit();
+    }else{
+        event.preventDefault()
+    }
+
 })
+// we write a function to check is all the input group was filled appropriately
+// to enable the user submit the form,
+function isFormValid(){
+    // we select input-groups using queryselect all
+    const inputContainers = form.querySelectorAll('.input-group');
+    let result = true;
+    inputContainers.forEach((container)=>{
+        if(container.classList.contains('error')){
+            result=false;
+        }
+    })
+    return result;
+}
 
 function validateForm(){
     // USERNAME
